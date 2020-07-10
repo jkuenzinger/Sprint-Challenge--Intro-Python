@@ -19,8 +19,8 @@ import csv
 class City():
   def __init__(self, name, lat, lon):
     self.name = name
-    self.lat = lat
-    self.lon = lon
+    self.lat = float(lat)
+    self.lon = float(lon)
 
     def __str__(self):
       return f"City({self.name}, {self.lat}, {self.lon})"
@@ -35,14 +35,10 @@ def cityreader(cities=[]):
   # `cities` list
 
   with open("cities.csv", newline="") as csvfile:
-    reader = csv.reader(csvfile, delimiter=",", quotechar="|")
-    next(reader)
-
-    for row in reader:
-      city = row[0]
-      lat = row[3]
-      lon = row[4]
-      cities.append(City(city, lat, lon))
+    reader = csv.reader(csvfile )
+    for e, row in enumerate(reader):
+      if e > 0:
+        cities.append(City(row[0], row[3], row[4]))
     
     return cities
 
